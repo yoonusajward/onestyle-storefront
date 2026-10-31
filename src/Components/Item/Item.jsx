@@ -1,22 +1,6 @@
-import React from 'react'
-import './Item.css'
-import {Link} from 'react-router-dom'
-
-const Item = (props) => {
-  return (
-    <div className='item'>
-        <Link to={`/product/${props.id}`}><img src={props.image} alt="" /></Link>
-        <p>{props.name}</p>
-        <div className='item-prices'>
-            <div className="item-price-new">
-                LKR {props.new_price}
-            </div>
-            <div className="item-price-old">
-                LKR {props.old_price}
-            </div>
-        </div>
-    </div>
-  )
+import { formatLKR } from '../../utils/currency';
+import React from 'react';
+import { Link } from 'react-router-dom';
+export default function Item(p) {
+  return <article className="item"><Link className="item-image" to={'/product/' + p.id}><img src={p.image} alt={p.name} loading="lazy" /><span className="item-badge">THE EVERYDAY EDIT</span><span className="item-arrow">↗</span></Link><div className="item-info"><Link to={'/product/' + p.id}><h3>{p.name}</h3></Link><div className="item-prices"><span>{formatLKR(p.new_price)}</span><del>{formatLKR(p.old_price)}</del></div></div></article>;
 }
-
-export default Item

@@ -1,84 +1,20 @@
-import React, { useContext, useState } from "react";
-import "./Navbar.css";
-import logo from "../Assets/logo.png";
-import cart_icon from "../Assets/cart_icon.png";
-import { Link, useNavigate } from "react-router-dom";
-import { ShopContext } from "../../Context/ShopContext";
-import { AuthContext } from "../../Context/AuthContext";
-
-const Navbar = () => {
-  const [menu, setMenu] = useState("shop");
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle menu visibility
-  const { getTotalCartItems } = useContext(ShopContext);
-  const { user, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  // Handle logout functionality
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
-
-  return (
-    <div className="navbar">
-      {/* Logo is now a clickable link to the homepage */}
-      <Link to="/" className="nav-logo">
-        <img src={logo} alt="OneStyle Logo" />
-        <p>OneStyle</p>
-      </Link>
-
-      {/* Mobile menu toggle */}
-      <div className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-
-      {/* All navigation links wrapped in a parent element */}
-      <div className={`nav-links-wrapper`}>
-        <ul className={`nav-menu ${isMenuOpen ? "open" : ""}`}>
-          <li onClick={() => setMenu("shop")}>
-            <Link style={{ textDecoration: "none" }} to="/">
-              Shop
-            </Link>
-            {menu === "shop" ? <hr /> : <></>}
-          </li>
-          <li onClick={() => setMenu("men")}>
-            <Link style={{ textDecoration: "none" }} to="/mens">
-              Men
-            </Link>
-            {menu === "men" ? <hr /> : <></>}
-          </li>
-          <li onClick={() => setMenu("women")}>
-            <Link style={{ textDecoration: "none" }} to="/womens">
-              Women
-            </Link>
-            {menu === "women" ? <hr /> : <></>}
-          </li>
-          <li onClick={() => setMenu("kids")}>
-            <Link style={{ textDecoration: "none" }} to="/kids">
-              Kids
-            </Link>
-            {menu === "kids" ? <hr /> : <></>}
-          </li>
-        </ul>
-      </div>
-
-      <div className="nav-login-cart">
-        {user ? (
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-        )}
-        <Link to="/cart">
-          <img src={cart_icon} alt="Cart Icon" />
-        </Link>
-        <div className="nav-cart-count">{getTotalCartItems()}</div>
-      </div>
-    </div>
-  );
-};
-
-export default Navbar;
+import React, { useContext, useState, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { ShopContext } from '../../Context/ShopContext';
+import { AuthContext } from '../../Context/AuthContext';
+export default function Navbar() {
+  const {
+    getTotalCartItems
+  } = useContext(ShopContext);
+  const {
+    user,
+    logout
+  } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    setOpen(false);
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  return <><a className="skip-link" href="#main-content">Skip to content</a><div className="announcement">A little less ordinary. A little more you. <span>Discover the collection ↗</span></div><header className="navbar"><button className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? '✕' : '☰'}</button><Link className="wordmark" to="/">onestyle<span>®</span></Link><nav aria-label="Main navigation" className={open ? 'nav-menu open' : 'nav-menu'}><NavLink to="/" end>Discover</NavLink><NavLink to="/womens">Women</NavLink><NavLink to="/mens">Men</NavLink><NavLink to="/kids">Little ones</NavLink></nav><div className="nav-actions">{user ? <button onClick={logout}>Sign out</button> : <Link to="/login">Account</Link>}<Link className="bag-link" to="/cart">Bag <span>{getTotalCartItems()}</span></Link></div></header></>;
+}

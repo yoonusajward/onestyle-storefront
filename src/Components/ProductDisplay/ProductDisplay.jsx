@@ -1,76 +1,16 @@
-import React, { useContext } from "react";
-import "./ProductDisplay.css";
-import start_icon from "../Assets/star_icon.png";
-import star_dull_icon from "../Assets/star_dull_icon.png";
-import { ShopContext } from "../../Context/ShopContext";
-
-const ProductDisplay = (props) => {
-  const { product } = props;
-  const { addToCart } = useContext(ShopContext);
-
-  return (
-    <div className="productdisplay">
-      <div className="productdisplay-main-img">
-        <img src={product.image} alt="Product" />
-      </div>
-      <div className="productdisplay-left">
-        <div className="productdisplay-img-list">
-          <img src={product.image} alt="Product" />
-          <img src={product.image} alt="Product" />
-          <img src={product.image} alt="Product" />
-        </div>
-      </div>
-
-      <div className="productdisplay-right">
-        <h1>{product.name}</h1>
-
-        <div className="productdisplay-right-star">
-          <img src={start_icon} alt="Star" />
-          <img src={start_icon} alt="Star" />
-          <img src={start_icon} alt="Star" />
-          <img src={start_icon} alt="Star" />
-          <img src={star_dull_icon} alt="Star" />
-          <p>(15 Reviews)</p>
-        </div>
-
-        <div className="productdisplay-right-prices">
-          <div className="productdisplay-right-price-old">
-            ${product.old_price}
-          </div>
-          <div className="productdisplay-right-price-new">
-            ${product.new_price}
-          </div>
-        </div>
-
-        <div className="productdisplay-right-description">
-          <p>{product.description}</p>
-        </div>
-
-        <div className="productdisplay-right-size">
-          <h1>Select Size</h1>
-          <div className="productdisplay-right-sizes">
-            <div>S</div>
-            <div>M</div>
-            <div>L</div>
-            <div>XL</div>
-            <div>XXL</div>
-          </div>
-        </div>
-
-        <button
-          onClick={() => {
-            addToCart(product.id);
-          }}
-        >
-          Add to Cart
-        </button>
-
-        <p className="productdisplay-right-category">
-          <span>Category: {product.category}</span>
-        </p>
-      </div>
-    </div>
-  );
-};
-
-export default ProductDisplay;
+import { formatLKR } from '../../utils/currency';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ShopContext } from '../../Context/ShopContext';
+export default function ProductDisplay({
+  product
+}) {
+  const {
+    addToCart
+  } = useContext(ShopContext);
+  const [added, setAdded] = useState(false);
+  return <section className="productdisplay"><div className="product-photo"><img src={product.image} alt={product.name} /><span>THE EVERYDAY EDIT</span></div><div className="product-details"><p className="eyebrow">ONESTYLE ESSENTIALS / {product.category === 'kid' ? 'LITTLE ONES' : product.category.toUpperCase()}</p><h1>{product.name}</h1><div className="detail-price">{formatLKR(product.new_price)} <del>{formatLKR(product.old_price)}</del></div><p className="product-description">{product.description}</p><p className="eyebrow">THE EVERYDAY EDIT</p><p className="fit-note">An easy addition to your everyday rotation.</p><button className="button dark add-button" onClick={() => {
+        addToCart(product.id);
+        setAdded(true);
+      }}>{added ? 'Added to your bag ✓' : 'Add to bag'} <span>↗</span></button><p className="added-message" role="status">{added && <Link to="/cart">Your next favorite is in the bag. View bag →</Link>}</p><div className="product-promises"><span>01 / A considered everyday essential</span><span>02 / Style it your way, all year round</span></div><details><summary>The OneStyle point of view</summary><p>Good style starts with pieces you reach for again and again. Make this one part of your everyday rotation.</p></details></div></section>;
+}

@@ -1,53 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Hero.css';
-import free_shipping from '../Assets/free_shipping.png';
-import easy_return from '../Assets/easy_return.png';
-import secure_payments from '../Assets/secure_payment.png';
-import arrow_icon from '../Assets/arrow.png';
-import hero_image from '../Assets/hero_image_2.png';
-
-const Hero = () => {
-  const navigate = useNavigate();
-
-  const handleShopNow = () => {
-    navigate('/womens');
-  };
-
-  return (
-    <div className="hero">
-      <div className="hero-left">
-        <h2>Welcome to Our Store</h2>
-        <h1>Discover New Collections</h1>
-        <p>Explore the latest trends designed for everyone.</p>
-        <div className="hero-buttons">
-          <button className="cta-primary" onClick={handleShopNow}>
-            Shop Now
-          </button>
-          <button className="cta-secondary">
-            Learn More <img src={arrow_icon} alt="arrow icon" />
-          </button>
-        </div>
-        <div className="hero-features">
-          <div className="feature">
-            <img src={free_shipping} alt="feature icon" />
-            <p>Free Shipping</p>
-          </div>
-          <div className="feature">
-            <img src={easy_return} alt="feature icon" />
-            <p>Easy Returns</p>
-          </div>
-          <div className="feature">
-            <img src={secure_payments} alt="feature icon" />
-            <p>Secure Payment</p>
-          </div>
-        </div>
-      </div>
-      <div className="hero-right">
-        <img src={hero_image} alt="Hero" />
-      </div>
-    </div>
-  );
-};
-
-export default Hero;
+import { Link } from 'react-router-dom';
+import hero from '../Assets/hero-editorial-v2.png';
+export default function Hero() {
+  return <section className="hero"><div className="hero-copy"><p className="eyebrow">THE EVERYDAY, RECONSIDERED</p><h1>Good style.<br />Great <em>feeling.</em></h1><p className="hero-description">Pieces to live in. Details to fall for.<br />Find your own kind of everyday.</p><Link className="button dark" to="/womens">Explore the collection <span>↗</span></Link><div className="hero-footnote"><span>01 — THE NEW EDIT</span><span>Made for your kind of day.</span></div></div><div className="hero-visual editorial-photo"><span className="vertical-note">THE ONESTYLE POINT OF VIEW</span><img src={hero} alt="Ivory linen and olive knitwear on a walnut chair in warm afternoon light" /><div className="image-caption"><span>The art of everyday.</span><Link to="/mens" aria-label="Explore menswear">↗</Link></div></div></section>;
+}

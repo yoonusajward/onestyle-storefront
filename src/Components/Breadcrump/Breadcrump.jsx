@@ -1,14 +1,7 @@
 import React from 'react';
-import './Breadcrump.css';
-import arrow_icon from '../Assets/breadcrum_arrow.png';
-
-const Breadcrump = (props) => {
-  const { product } = props;
-  return (
-    <div className="breadcrump">
-      HOME <img src={arrow_icon} alt="Arrow Icon" /> SHOP <img src={arrow_icon} alt="Arrow Icon" /> {product.category} <img src={arrow_icon} alt="Arrow Icon" /> {product.name}
-    </div>
-  );
-};
-
-export default Breadcrump;
+import { Link } from 'react-router-dom';
+export default function Breadcrump({
+  product
+}) {
+  return <nav aria-label="Breadcrumb" className="breadcrumb"><Link to="/">Home</Link><span>/</span><Link to={product.category === 'women' ? '/womens' : product.category === 'men' ? '/mens' : '/kids'}>{product.category === 'kid' ? 'Little ones' : product.category}</Link><span>/</span><span>{product.name}</span></nav>;
+}

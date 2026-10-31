@@ -1,89 +1,15 @@
+import { formatLKR } from '../../utils/currency';
 import React, { useContext } from 'react';
-import './CartItem.css';
+import { Link } from 'react-router-dom';
 import { ShopContext } from '../../Context/ShopContext';
-import remove_icon from '../Assets/cart_cross_icon.png';
-
-const CartItems = () => {
-    const { getTotalCartAmount, all_product, cartItems, removeFromCart, updateCartItemCount } = useContext(ShopContext);
-
-    const handleAddQuantity = (id) => {
-        updateCartItemCount(id, cartItems[id] + 1);
-    };
-    
-    const handleSubtractQuantity = (id) => {
-        if (cartItems[id] > 1) {
-            updateCartItemCount(id, cartItems[id] - 1);
-        } else {
-            removeFromCart(id);
-        }
-    };
-
-    return (
-        <div className="cartitems">
-            <div className="cartitems-format-main">
-                <p>Products</p>
-                <p>Title</p>
-                <p>Price</p>
-                <p>Quantity</p>
-                <p>Total</p>
-                <p>Remove</p>
-            </div>
-            <hr />
-            {all_product.length === 0 ? (
-                <p>No products available</p>
-            ) : (
-                all_product.map((e) => {
-                    if (cartItems[e.id] > 0) {
-                        return (
-                            <div key={e.id}>
-                                <div className="cartitems-format cartitems-format-main">
-                                    <img src={e.image} alt="" className="carticon-product-icon" />
-                                    <p>{e.name}</p>
-                                    <p>${e.new_price}</p>
-                                    <div className="cartitems-quantity-wrapper">
-                                        <button onClick={() => handleSubtractQuantity(e.id)}>-</button>
-                                        <span className="cartitems-quantity">{cartItems[e.id]}</span>
-                                        <button onClick={() => handleAddQuantity(e.id)}>+</button>
-                                    </div>
-                                    <p>${e.new_price * cartItems[e.id]}</p>
-                                    <img
-                                        src={remove_icon}
-                                        onClick={() => removeFromCart(e.id)}
-                                        alt="Remove"
-                                        className="carticon-remove-icon"
-                                    />
-                                </div>
-                                <hr />
-                            </div>
-                        );
-                    }
-                    return null;
-                })
-            )}
-            <div className="cartitems-down">
-                <div className="cartitems-total">
-                    <h1>Cart Totals</h1>
-                    <div>
-                        <div className="cartitems-total-item">
-                            <p>Sub Total: </p>
-                            <p>${getTotalCartAmount()}</p>
-                        </div>
-                        <hr />
-                        <div className="cartitems-total-item">
-                            <p>Shipping Free</p>
-                            <p>Free</p>
-                        </div>
-                        <hr />
-                        <div className="cartitems-total-item">
-                            <h3>Total: </h3>
-                            <h3>${getTotalCartAmount()}</h3>
-                        </div>
-                    </div>
-                    <button>Proceed to Checkout</button>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default CartItems;
+export default function CartItems() {
+  const {
+    all_product,
+    cartItems,
+    updateCartItemCount,
+    getTotalCartAmount,
+    getTotalCartItems
+  } = useContext(ShopContext);
+  const products = all_product.filter(p => cartItems[p.id] > 0);
+  return <section className="cart-page"><header className="page-heading"><p className="eyebrow">YOUR GOOD FINDS</p><h1>The shopping bag.<sup>{getTotalCartItems()}</sup></h1></header>{!products.length ? <div className="empty-state"><span className="empty-icon">↗</span><h2>A little room for something good.</h2><p>Your bag is waiting for your next favorite.</p><Link className="button dark" to="/womens">Discover the collection ↗</Link></div> : <div className="cart-layout"><div className="cart-list">{products.map(p => <article className="cart-row" key={p.id}><Link to={'/product/' + p.id}><img src={p.image} alt={p.name} /></Link><div><small>ONESTYLE ESSENTIALS</small><Link to={'/product/' + p.id}><h3>{p.name}</h3></Link><p>{formatLKR(p.new_price)}</p><div className="quantity"><button aria-label={'Decrease quantity of ' + p.name} onClick={() => updateCartItemCount(p.id, cartItems[p.id] - 1)}>−</button><span>{cartItems[p.id]}</span><button aria-label={'Increase quantity of ' + p.name} onClick={() => updateCartItemCount(p.id, cartItems[p.id] + 1)}>+</button></div></div><div className="cart-line-total"><span>{formatLKR(p.new_price * cartItems[p.id])}</span><button onClick={() => updateCartItemCount(p.id, 0)}>Remove</button></div></article>)}<Link className="text-link" to="/womens">← Continue exploring</Link></div><aside className="order-summary"><p className="eyebrow">THE DETAILS</p><h2>Order summary</h2><div><span>Subtotal</span><span>{formatLKR(getTotalCartAmount())}</span></div><div><span>Shipping</span><span>Complimentary</span></div><div className="order-total"><span>Total</span><span>{formatLKR(getTotalCartAmount())}</span></div><button className="button dark" disabled>Checkout coming soon</button><p>Your bag is ready. Online checkout is not available yet.</p></aside></div>}</section>;
+}

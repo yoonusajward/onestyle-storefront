@@ -1,5 +1,5 @@
 import React from 'react';
-import './SearchFilter.css';
+
 
 const SearchFilter = ({ searchTerm, setSearchTerm, selectedCategory, setSelectedCategory, priceRange, setPriceRange }) => {
   const handleSearch = (e) => {
@@ -30,9 +30,9 @@ const SearchFilter = ({ searchTerm, setSearchTerm, selectedCategory, setSelected
       </select>
       <select value={priceRange} onChange={handlePriceChange}>
         <option value="">All Price Ranges</option>
-        <option value="low">Under $50</option>
-        <option value="medium">$50 - $100</option>
-        <option value="high">Above $100</option>
+        <option value="low">Under LKR 3,000</option>
+        <option value="medium">LKR 3,000 – 6,000</option>
+        <option value="high">Above LKR 6,000</option>
       </select>
     </div>
   );

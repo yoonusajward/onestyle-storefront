@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom"; // to redirect
-import "./Css/LoginSignup.css";
+
 
 const LoginForm = () => {
   const { login } = useContext(AuthContext);
@@ -36,7 +36,7 @@ const LoginForm = () => {
       <div className="loginsignup-fields">
         <input
           type="email"
-          name="email"
+          name="email" aria-label="Email address"
           placeholder="Email Address"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -48,7 +48,7 @@ const LoginForm = () => {
 
         <input
           type="password"
-          name="password"
+          name="password" aria-label="Password"
           placeholder="Password"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
