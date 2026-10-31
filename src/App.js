@@ -1,3 +1,4 @@
+import Checkout from './Pages/Checkout';
 import PageMetadata from './Components/PageMetadata/PageMetadata';
 
 import Navbar from './Components/Navbar/Navbar';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/kids" element={<ShopCategory banner={kids_banner} category="kid" />} />
           <Route path="/product/:productId" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route
             path="/login"
             element={user ? <Navigate to="/" /> : <LoginSignup />}

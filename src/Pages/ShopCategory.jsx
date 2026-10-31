@@ -1,3 +1,4 @@
+import ArrowIcon from '../Components/Icons/ArrowIcon';
 import React, { useContext, useState } from 'react';
 import { ShopContext } from '../Context/ShopContext';
 import Item from '../Components/Item/Item';
@@ -20,5 +21,5 @@ export default function ShopCategory({
   return <div className="category-page"><header className="category-heading"><p className="eyebrow">ONESTYLE / {category === 'kid' ? 'LITTLE ONES' : category.toUpperCase()}</p><h1>{names[category]}</h1><p>Easy to wear. Easy to love. Make the everyday your own.</p></header><div className="filter-bar"><label className="search-field"><span>Search</span><input type="search" placeholder="Find your next favorite" value={search} onChange={e => setSearch(e.target.value)} /></label><label>Price<select value={price} onChange={e => setPrice(e.target.value)}><option value="">All prices</option><option value="low">Under LKR 3,000</option><option value="medium">LKR 3,000 – 6,000</option><option value="high">Above LKR 6,000</option></select></label><label>Sort by<select value={sort} onChange={e => setSort(e.target.value)}><option value="featured">Featured</option><option value="ascending">Price: low to high</option><option value="descending">Price: high to low</option></select></label></div><p className="results-count">{products.length} considered essentials</p><div className="product-grid">{products.map(p => <Item key={p.id} {...p} />)}</div>{!products.length && <div className="empty-state"><h2>No matches, just yet.</h2><p>Try another search or a different price range.</p><button className="button dark" onClick={() => {
         setSearch('');
         setPrice('');
-      }}>Clear filters ↗</button></div>}</div>;
+      }}>Clear filters <ArrowIcon /></button></div>}</div>;
 }

@@ -1,0 +1,20 @@
+/* Shared typography configuration. Change the font import and stack here. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,100..1000;1,100..1000&display=swap');
+
+:root {
+  --font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+html {
+  font-family: var(--font-family);
+}
+
+/* Native controls otherwise use browser-specific default fonts. */
+button,
+input,
+select,
+textarea,
+optgroup,
+option {
+  font: inherit;
+}

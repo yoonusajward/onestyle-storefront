@@ -9,6 +9,7 @@ const pages = {
   '/womens': ["Women's Collection | OneStyle", 'Discover relaxed shirts, considered tops, and everyday knitwear. Explore the women’s edit at OneStyle, with prices in LKR.'],
   '/mens': ["Men's Collection | OneStyle", 'Explore everyday bombers, overshirts, and considered outerwear. Discover the men’s edit at OneStyle, with prices in LKR.'],
   '/kids': ['Little Ones Collection | OneStyle', 'Small people. Big style. Discover easy hoodies and playful sweatshirts for little ones at OneStyle, with prices in LKR.'],
+  '/checkout': ['Sample Checkout | OneStyle', 'Try the OneStyle sample checkout. Review your bag, enter sample delivery details, and preview an order without a real payment.'],
   '/cart': ['Your Shopping Bag | OneStyle', 'Your OneStyle favorites, all in one place. Review your shopping bag and order total in LKR.'],
   '/login': ['Your Account | OneStyle', 'Welcome to OneStyle. Sign in or create an account for your own kind of everyday style.'],
 };
@@ -35,7 +36,7 @@ export default function PageMetadata() {
     const url = siteUrl + (normalizedPath === '/' ? '' : normalizedPath.slice(1));
     document.title = title;
     setMeta('name', 'description', description);
-    setMeta('name', 'robots', ['/cart', '/login'].includes(normalizedPath) || (!product && !pages[normalizedPath]) ? 'noindex, follow' : 'index, follow');
+    setMeta('name', 'robots', ['/cart', '/login', '/checkout'].includes(normalizedPath) || (!product && !pages[normalizedPath]) ? 'noindex, follow' : 'index, follow');
     setMeta('property', 'og:title', title);
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:url', url);
