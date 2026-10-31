@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div>
-      <Router basename="/ecommerce-react-project">
+      <Router>
         <PageMetadata />
         <Navbar />
         <main id="main-content"><Routes>

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import products from '../Assets/all_product';
 
-const siteUrl = 'https://yoonusajward.github.io/ecommerce-react-project/';
+const siteUrl = 'https://onestyle-storefront.vercel.app/';
 const defaultDescription = 'Discover considered essentials for women, men, and little ones. Explore the OneStyle collection, find your everyday favorites, and shop in LKR.';
 const pages = {
   '/': ['OneStyle — Wear it your way', defaultDescription],
